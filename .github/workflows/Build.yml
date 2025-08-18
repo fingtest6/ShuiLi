@@ -1,9 +1,26 @@
 name: Build and Publish Release
 
 on:
-  push:
-    tags:
-      - 'v*' # 监听以 v 开头的 tag，例如 v1.0.0
+  workflow_dispatch:  # 允许手动触发
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      release_name:
+        description: 'Release name'
+        required: false
+        default: 'Release'
+      prelease:
+        description: 'Is this a pre-release?'
+        type: boolean
+        required: false
+        default: false
+      draft:
+        description: 'Create as draft?'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   build-and-release:
