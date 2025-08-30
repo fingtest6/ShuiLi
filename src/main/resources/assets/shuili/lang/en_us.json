@@ -1,5 +1,9 @@
 {
   "itemGroup.shuili": "ShuiLi",
   "item.shuili.shuili": "ShuiLi",
-  "item.shuili.cooked_shuili": "Cooked ShuiLi"
+  "item.shuili.cooked_shuili": "Cooked ShuiLi",
+  "advancement.shuili.title": "I have a ShuiLi",
+  "advancement.shuili.descr": "Obtain ShuiLi",
+  "advancement.cooked_shuili.title": "Cooked ShuiLi",
+  "advancement.cooked_shuili.descr": "Delicious roasted ShuiLi"
 }

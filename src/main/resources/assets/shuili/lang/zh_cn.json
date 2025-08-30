@@ -1,5 +1,9 @@
 {
   "itemGroup.shuili": "水历",
   "item.shuili.shuili": "水历",
-  "item.shuili.cooked_shuili": "熟水历"
+  "item.shuili.cooked_shuili": "熟水历",
+  "advancement.shuili.title": "《哈基水》",
+  "advancement.shuili.descr": "获得水历",
+  "advancement.cooked_shuili.title": "烤水历",
+  "advancement.cooked_shuili.descr": "香香的烤水历"
 }

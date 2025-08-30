@@ -1,0 +1,10 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    { "tag": "minecraft:meat" },
+    { "item": "minecraft:water_bucket" }
+  ],
+  "result": {
+    "id": "shuili:shuili"
+  }
+}
