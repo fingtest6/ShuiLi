@@ -1,29 +1,18 @@
-name: Build and Publish Release
+name: Build and Download JAR
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag (e.g. v1.0.0)'
-        required: true
-        default: 'v1.0.0'
-      release_name:
-        description: 'Release name'
+        description: 'Tag to build (e.g. v1.0.0)'
         required: false
-        default: 'Release'
-      prerelease:
-        description: 'Is this a pre-release?'
-        type: boolean
-        required: false
-        default: false
-      draft:
-        description: 'Create as draft?'
-        type: boolean
-        required: false
-        default: false
+        default: 'latest'
+  push:
+    tags:
+      - 'v*'  
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,27 +29,19 @@ jobs:
       - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
+      - name: Build JAR
         run: ./gradlew build --no-daemon
 
-      - name: Locate JAR file
+      - name: Find JAR file
         id: locate
         run: |
-          # 查找 build/libs 下的 .jar 文件（排除 -sources.jar, -javadoc.jar）
           JAR_PATH=$(find build/libs -name "*.jar" ! -name "*-sources.jar" ! -name "*-javadoc.jar" | head -n 1)
-          if [ -z "$JAR_PATH" ]; then
-            echo "❌ No JAR file found!"
-            exit 1
-          fi
           echo "JAR_PATH=$JAR_PATH" >> $GITHUB_ENV
           echo "JAR_NAME=$(basename "$JAR_PATH")" >> $GITHUB_ENV
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ inputs.tag }}            
-          release_name: ${{ inputs.release_name }}      
-          draft: ${{ inputs.draft }}                    
+          name: ${{ env.JAR_NAME }}  
+          path: ${{ env.JAR_PATH }}
+          if-no-files-found: error
