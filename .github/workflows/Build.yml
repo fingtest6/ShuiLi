@@ -1,4 +1,4 @@
-name: Build and Download JAR
+name: CI Build
 
 on:
   workflow_dispatch:
